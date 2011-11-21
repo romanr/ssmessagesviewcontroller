@@ -56,7 +56,7 @@ static CGFloat kMarginBottom = 2.0f;
 
 - (id)initWithFrame:(CGRect)frame {
 	if (self = [super initWithFrame:frame]) {
-		self.backgroundColor = [UIColor colorWithRed:0.859f green:0.886f blue:0.929f alpha:1.0f];
+		self.backgroundColor = [UIColor clearColor];
 	}
 	return self;
 }
