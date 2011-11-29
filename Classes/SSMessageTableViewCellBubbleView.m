@@ -9,6 +9,7 @@
 #import "SSMessageTableViewCellBubbleView.h"
 
 #define kFont [UIFont systemFontOfSize:15.0]
+#define kDetailFont [UIFont boldSystemFontOfSize:11.0]
 static UILineBreakMode kLineBreakMode = UILineBreakModeWordWrap;
 static CGFloat kMaxWidth = 223.0f; // TODO: Make dynamic
 static CGFloat kPaddingTop = 4.0f;
@@ -19,6 +20,9 @@ static CGFloat kMarginBottom = 2.0f;
 @implementation SSMessageTableViewCellBubbleView
 
 @synthesize messageText = _messageText;
+@synthesize detailText = _detailText;
+@synthesize detailTextColor = _detailTextColor;
+@synthesize detailBackgroundColor = _detailBackgroundColor;
 @synthesize leftBackgroundImage = _leftBackgroundImage;
 @synthesize rightBackgroundImage = _rightBackgroundImage;
 @synthesize messageStyle = _messageStyle;
@@ -28,6 +32,11 @@ static CGFloat kMarginBottom = 2.0f;
 + (CGSize)textSizeForText:(NSString *)text {
 	CGSize maxSize = CGSizeMake(kMaxWidth - 35.0f, 1000.0f);
 	return [text sizeWithFont:kFont constrainedToSize:maxSize lineBreakMode:kLineBreakMode];
+}
+
++ (CGSize)textSizeForText:(NSString *)text withFont:(UIFont *)font {
+	CGSize maxSize = CGSizeMake(kMaxWidth - 35.0f, 1000.0f);
+	return [text sizeWithFont:font constrainedToSize:maxSize lineBreakMode:kLineBreakMode];
 }
 
 
@@ -46,6 +55,9 @@ static CGFloat kMarginBottom = 2.0f;
 
 - (void)dealloc {
 	[_messageText release];
+	[_detailText release];
+	[_detailTextColor release];
+	[_detailBackgroundColor release];
 	[_leftBackgroundImage release];
 	[_rightBackgroundImage release];
 	[super dealloc];
@@ -63,14 +75,44 @@ static CGFloat kMarginBottom = 2.0f;
 
 
 - (void)drawRect:(CGRect)frame {
+	//Bubble
 	UIImage *bubbleImage = _messageStyle == SSMessageStyleLeft ? _leftBackgroundImage : _rightBackgroundImage;
 	CGSize bubbleSize = [[self class] bubbleSizeForText:_messageText];
 	CGRect bubbleFrame = CGRectMake((_messageStyle == SSMessageStyleRight ? self.frame.size.width - bubbleSize.width : 0.0f), kMarginTop, bubbleSize.width, bubbleSize.height);
-	[bubbleImage drawInRect:bubbleFrame];
 	
+	//Message
 	CGSize textSize = [[self class] textSizeForText:_messageText];
 	CGFloat textX = (CGFloat)bubbleImage.leftCapWidth - 3.0f + ((_messageStyle == SSMessageStyleRight) ? bubbleFrame.origin.x : 0.0f);
 	CGRect textFrame = CGRectMake(textX, kPaddingTop + kMarginTop, textSize.width, textSize.height);
+
+	//DetailLabel
+	if(_detailText) {
+		CGSize detailTextSize = [[self class] textSizeForText:_detailText withFont:kDetailFont];
+		CGFloat textX = (_messageStyle == SSMessageStyleLeft ? bubbleFrame.size.width : bubbleFrame.origin.x - detailTextSize.width);
+		CGRect detailFrame = CGRectMake(textX, textFrame.origin.y + textFrame.size.height - detailTextSize.height, detailTextSize.width, detailTextSize.height);
+		
+		//Background
+		int detailTextPadding = 3;
+		CGRect detailBackgroundFrame;
+		if(_messageStyle == SSMessageStyleLeft)
+			detailBackgroundFrame = CGRectMake(detailFrame.origin.x - 10, detailFrame.origin.y - detailTextPadding, detailFrame.size.width + 10 + detailTextPadding, detailFrame.size.height + (detailTextPadding * 2));
+		else
+			detailBackgroundFrame = CGRectMake(detailFrame.origin.x - detailTextPadding, detailFrame.origin.y - detailTextPadding, detailFrame.size.width + (10 * 2) + detailTextPadding, detailFrame.size.height + (detailTextPadding * 2));			
+
+		if(_detailTextColor == nil)_detailTextColor = [UIColor blackColor];
+		if(_detailBackgroundColor == nil)_detailBackgroundColor = [UIColor whiteColor];
+
+		CGContextRef context = UIGraphicsGetCurrentContext();
+		CGContextSetFillColorWithColor(context, [_detailBackgroundColor CGColor]);
+		CGContextFillRect(context, detailBackgroundFrame);
+		
+		// DRAW TEXT
+		[_detailTextColor set];
+		[_detailText drawInRect:detailFrame withFont:kDetailFont];
+	}
+
+	[[UIColor blackColor] set];
+	[bubbleImage drawInRect:bubbleFrame];
 	[_messageText drawInRect:textFrame withFont:kFont lineBreakMode:kLineBreakMode alignment:(_messageStyle == SSMessageStyleRight) ? UITextAlignmentRight : UITextAlignmentLeft];
 }
 

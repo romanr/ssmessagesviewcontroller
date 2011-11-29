@@ -99,6 +99,18 @@ CGFloat kInputHeight = 40.0f;
 	return nil;
 }
 
+- (NSString *)detailTextForRowAtIndexPath:(NSIndexPath *)indexPath {
+	return nil;
+}
+
+- (UIColor *)detailTextColorForRowAtIndexPath:(NSIndexPath *)indexPath {
+	return nil;
+}
+
+- (UIColor *)detailBackgroundColorForRowAtIndexPath:(NSIndexPath *)indexPath {
+	return nil;
+}
+
 
 #pragma mark UITableViewDataSource
 
@@ -113,19 +125,22 @@ CGFloat kInputHeight = 40.0f;
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *cellIdentifier = @"cellIdentifier";
+  static NSString *cellIdentifier = @"cellIdentifier";
     
-    SSMessageTableViewCell *cell = (SSMessageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (cell == nil) {
-        cell = [[[SSMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+	SSMessageTableViewCell *cell = (SSMessageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+  if (cell == nil) {
+		cell = [[[SSMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
 		[cell setBackgroundImage:self.leftBackgroundImage forMessageStyle:SSMessageStyleLeft];
 		[cell setBackgroundImage:self.rightBackgroundImage forMessageStyle:SSMessageStyleRight];
-    }
+	}
 	
-    cell.messageStyle = [self messageStyleForRowAtIndexPath:indexPath];
+  cell.messageStyle = [self messageStyleForRowAtIndexPath:indexPath];
 	cell.messageText = [self textForRowAtIndexPath:indexPath];
-	
-    return cell;
+	cell.detailText = [self detailTextForRowAtIndexPath:indexPath];
+	cell.detailTextColor = [self detailTextColorForRowAtIndexPath:indexPath];
+	cell.detailBackgroundColor = [self detailBackgroundColorForRowAtIndexPath:indexPath];
+
+  return cell;
 }
 
 

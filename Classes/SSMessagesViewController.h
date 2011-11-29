@@ -35,5 +35,8 @@
 
 - (SSMessageStyle)messageStyleForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (NSString *)textForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (NSString *)detailTextForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (UIColor *)detailTextColorForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (UIColor *)detailTextBackgroundColorForRowAtIndexPath:(NSIndexPath *)indexPath;
 
 @end

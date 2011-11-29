@@ -46,6 +46,18 @@
 	return _bubbleView.messageText;
 }
 
+- (NSString *)detailText {
+	return _bubbleView.detailText;
+}
+
+- (UIColor *)detailTextColor {
+	return _bubbleView.detailTextColor;
+}
+
+- (UIColor *)detailBackgroundColor {
+	return _bubbleView.detailBackgroundColor;
+}
+
 
 #pragma mark Setters
 
@@ -60,6 +72,20 @@
   [_bubbleView setNeedsDisplay];
 }
 
+- (void)setDetailText:(NSString *)text {
+	_bubbleView.detailText = text;
+  [_bubbleView setNeedsDisplay];
+}
+
+- (void)setDetailTextColor:(UIColor *)color {
+	_bubbleView.detailTextColor = color;
+  [_bubbleView setNeedsDisplay];
+}
+
+- (void)setDetailBackgroundColor:(UIColor *)color {
+	_bubbleView.detailBackgroundColor = color;
+  [_bubbleView setNeedsDisplay];
+}
 
 - (void)setBackgroundImage:(UIImage *)backgroundImage forMessageStyle:(SSMessageStyle)messsageStyle {
 	if (messsageStyle == SSMessageStyleLeft) {

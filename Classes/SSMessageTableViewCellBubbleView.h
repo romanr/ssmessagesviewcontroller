@@ -13,12 +13,18 @@
 @private
 	
 	NSString *_messageText;
+	NSString *_detailText;
+	UIColor *_detailTextColor;
+	UIColor *_detailBackgroundColor;
 	UIImage *_leftBackgroundImage;
 	UIImage *_rightBackgroundImage;
 	SSMessageStyle _messageStyle;
 }
 
 @property (nonatomic, copy) NSString *messageText;
+@property (nonatomic, copy) NSString *detailText;
+@property (nonatomic, retain) UIColor *detailTextColor;
+@property (nonatomic, retain) UIColor *detailBackgroundColor;
 @property (nonatomic, retain) UIImage *leftBackgroundImage;
 @property (nonatomic, retain) UIImage *rightBackgroundImage;
 @property (nonatomic, assign) SSMessageStyle messageStyle;

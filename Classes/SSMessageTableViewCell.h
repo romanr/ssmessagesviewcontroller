@@ -21,6 +21,9 @@ typedef enum {
 }
 
 @property (nonatomic, copy) NSString *messageText;
+@property (nonatomic, copy) NSString *detailText;
+@property (nonatomic, copy) UIColor *detailTextColor;
+@property (nonatomic, copy) UIColor *detailBackgroundColor;
 @property (nonatomic, assign) SSMessageStyle messageStyle;
 
 - (void)setBackgroundImage:(UIImage *)backgroundImage forMessageStyle:(SSMessageStyle)messsageStyle;
