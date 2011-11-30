@@ -37,6 +37,6 @@
 - (NSString *)textForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (NSString *)detailTextForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (UIColor *)detailTextColorForRowAtIndexPath:(NSIndexPath *)indexPath;
-- (UIColor *)detailTextBackgroundColorForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (UIColor *)detailBackgroundColorForRowAtIndexPath:(NSIndexPath *)indexPath;
 
 @end

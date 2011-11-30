@@ -9,7 +9,7 @@
 #import "SSMessageTableViewCellBubbleView.h"
 
 #define kFont [UIFont systemFontOfSize:15.0]
-#define kDetailFont [UIFont boldSystemFontOfSize:11.0]
+#define kDetailFont [UIFont systemFontOfSize:11.0]
 static UILineBreakMode kLineBreakMode = UILineBreakModeWordWrap;
 static CGFloat kMaxWidth = 223.0f; // TODO: Make dynamic
 static CGFloat kPaddingTop = 4.0f;
