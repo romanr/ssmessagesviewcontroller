@@ -19,7 +19,7 @@
 
 
 static UILineBreakMode kLineBreakMode = UILineBreakModeWordWrap;
-static CGFloat kMaxWidth = 223.0f - (IMAGE_WIDTH + (2*IMAGE_PADDING)); // TODO: Make dynamic
+static CGFloat kMaxWidth = (320.0-IMAGE_WIDTH + (2*IMAGE_PADDING)) - (IMAGE_WIDTH + (2*IMAGE_PADDING)); // TODO: Make dynamic
 static CGFloat kPaddingTop = 4.0f;
 static CGFloat kPaddingBottom = 8.0f;
 static CGFloat kMarginTop = 2.0f;
@@ -95,10 +95,9 @@ static CGFloat kMarginBottom = 2.0f;
     //user avatar image view
     
     CGRect imgFrame = CGRectMake(0, 0, IMAGE_WIDTH, IMAGE_HEIGHT);
-    imgFrame.origin.y = kPaddingTop;
+	imgFrame.origin.y = frame.size.height-IMAGE_HEIGHT;
 
     UIImage *userPic;
-    
     if (_messageStyle == SSMessageStyleLeft) {
         imgFrame.origin.x = IMAGE_PADDING;
         userPic  = self.buddyImg;
@@ -106,6 +105,7 @@ static CGFloat kMarginBottom = 2.0f;
         imgFrame.origin.x = self.frame.size.width - (IMAGE_PADDING+IMAGE_WIDTH);
         userPic  = self.userImg;
     }
+		
     
     
 	//Bubble
