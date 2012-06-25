@@ -19,7 +19,7 @@
 
 
 static UILineBreakMode kLineBreakMode = UILineBreakModeWordWrap;
-static CGFloat kMaxWidth = (320.0-IMAGE_WIDTH + (2*IMAGE_PADDING)) - (IMAGE_WIDTH + (2*IMAGE_PADDING)); // TODO: Make dynamic
+static CGFloat kMaxWidth = 320.0-IMAGE_WIDTH - IMAGE_PADDING; 
 static CGFloat kPaddingTop = 4.0f;
 static CGFloat kPaddingBottom = 8.0f;
 static CGFloat kMarginTop = 2.0f;
@@ -111,12 +111,12 @@ static CGFloat kMarginBottom = 2.0f;
 	//Bubble
 	UIImage *bubbleImage = _messageStyle == SSMessageStyleLeft ? _leftBackgroundImage : _rightBackgroundImage;
 	CGSize bubbleSize = [[self class] bubbleSizeForText:_messageText];
-	CGRect bubbleFrame = CGRectMake((_messageStyle == SSMessageStyleRight ? self.frame.size.width - bubbleSize.width : 0.0f+ imgFrame.size.width), kMarginTop, bubbleSize.width - imgFrame.size.width, bubbleSize.height);
+	CGRect bubbleFrame = CGRectMake((_messageStyle == SSMessageStyleRight ? self.frame.size.width - bubbleSize.width : 0.0f+ imgFrame.size.width), frame.size.height-bubbleSize.height-kMarginBottom, bubbleSize.width - imgFrame.size.width, bubbleSize.height);
 	
 	//Message
 	CGSize textSize = [[self class] textSizeForText:_messageText];
 	CGFloat textX = (CGFloat)bubbleImage.leftCapWidth - 3.0f + ((_messageStyle == SSMessageStyleRight) ? bubbleFrame.origin.x : 0.0f+IMAGE_WIDTH+IMAGE_PADDING);
-	CGRect textFrame = CGRectMake(textX, kPaddingTop + kMarginTop, textSize.width, textSize.height);
+	CGRect textFrame = CGRectMake(textX, frame.size.height-textSize.height- kMarginBottom -  kPaddingBottom , textSize.width, textSize.height);
 
 	//DetailLabel
 	if(_detailText) {
